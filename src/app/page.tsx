@@ -9,11 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { SummarySkeleton } from '@/components/summary-skeleton';
+import { useTypewriter } from '@/hooks/use-word-stream';
 
 export default function HomePage() {
   const [file, setFile] = useState<File | null>(null);
   const [summary, setSummary] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const typewriterText = useTypewriter(summary);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -48,7 +50,7 @@ export default function HomePage() {
 
         const data = await response.json();
         resolve(data);
-      } catch (err: any) {
+      } catch (err: unknown) {
         reject(err);
       }
     });
@@ -56,7 +58,7 @@ export default function HomePage() {
     toast.promise(promise(), {
       loading: 'Summarizing your document... This may take a moment.',
       success: (data) => {
-        setSummary(data.summary);
+        setSummary(data.summary); 
         setIsLoading(false);
         return 'Summary generated successfully!';
       },
@@ -72,7 +74,7 @@ export default function HomePage() {
       <div className="w-full max-w-2xl space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">
-            Clavis 
+            Clavis
           </h1>
           <p className="text-gray-500 dark:text-gray-400">
             Unlock the core insights from your research papers.
@@ -103,7 +105,7 @@ export default function HomePage() {
               <CardTitle>Summary</CardTitle>
             </CardHeader>
             <CardContent className="prose dark:prose-invert">
-              <p>{summary}</p>
+              <p>{typewriterText}</p> 
             </CardContent>
           </Card>
         )}
