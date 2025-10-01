@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { SummarySkeleton } from '@/components/summary-skeleton';
 
 export default function HomePage() {
   const [file, setFile] = useState<File | null>(null);
@@ -107,16 +108,7 @@ export default function HomePage() {
           </Card>
         )}
 
-        {isLoading && (
-           <Card>
-            <CardHeader>
-              <CardTitle>Generating...</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-500">The AI is reading and summarizing your document. Please wait.</p>
-            </CardContent>
-          </Card>
-        )}
+        {isLoading && <SummarySkeleton />}
       </div>
     </main>
   );
