@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-export function useTypewriter(text: string, speed: number = 5) {
+export function useTypewriter(text: string, speed: number = 2) {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
 
