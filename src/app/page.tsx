@@ -36,8 +36,9 @@ export default function HomePage() {
         }
         const data = await response.json();
         resolve(data);
-      } catch (err: any) {
-        reject(new Error(err.message || 'An unexpected error occurred.'));
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred.';
+        reject(new Error(errorMessage || 'An unexpected error occurred.'));
       }
     });
 
